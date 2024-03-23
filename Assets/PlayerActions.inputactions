@@ -22,6 +22,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Camera Axis X",
+                    "type": "Value",
+                    "id": "27bf3d91-a6e4-47e4-a81d-ac120751d669",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Camera Axis Y",
+                    "type": "Value",
+                    "id": "25a5e0cb-bd0e-4461-9dac-aa3d2fa915b1",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -39,7 +57,7 @@
                 {
                     "name": "up",
                     "id": "85a99a95-2c93-476d-81a8-8718b439c4cf",
-                    "path": "<Keyboard>/upArrow",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
@@ -50,7 +68,7 @@
                 {
                     "name": "down",
                     "id": "88b57977-a6f5-4bd6-b03b-372d1b070787",
-                    "path": "<Keyboard>/downArrow",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
@@ -61,7 +79,7 @@
                 {
                     "name": "left",
                     "id": "b3219ed7-d6fe-46f3-881b-896ec13f68aa",
-                    "path": "<Keyboard>/leftArrow",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
@@ -72,7 +90,7 @@
                 {
                     "name": "right",
                     "id": "251f86a4-b8b4-430a-ae20-709a446bc4d0",
-                    "path": "<Keyboard>/rightArrow",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
@@ -88,6 +106,28 @@
                     "processors": "",
                     "groups": "PC",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2424b2a2-bf96-4ecd-ba60-3cd566c56afb",
+                    "path": "<Mouse>/delta/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "Camera Axis X",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ed80fce9-aaf8-42c3-ba5a-5cc0b253f802",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC",
+                    "action": "Camera Axis Y",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
