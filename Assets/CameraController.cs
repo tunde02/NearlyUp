@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -32,7 +32,7 @@ public class CameraController : MonoBehaviour
         float rotationX = cameraAngle.x - mouseAxisY * sensitivity * Time.deltaTime;
         float rotationY = cameraAngle.y + mouseAxisX * sensitivity * Time.deltaTime;
 
-        // Ä«¸Ş¶ó°¡ µÚÁı¾îÁöÁö ¾Êµµ·Ï È¸Àü °¢µµ Á¦ÇÑ
+        // ì¹´ë©”ë¼ê°€ ë’¤ì§‘ì–´ì§€ì§€ ì•Šë„ë¡ íšŒì „ ê°ë„ ì œí•œ
         if (-cameraAngleDeadzone < rotationX - 90f && rotationX - 90f < 0f)
         {
             rotationX = 90f - cameraAngleDeadzone;
@@ -59,8 +59,8 @@ public class CameraController : MonoBehaviour
         Vector3 realCameraWorldPosition = transform.TransformPoint(realCameraNormal * maxCameraDistance);
         float cameraDistance = maxCameraDistance;
 
-        // ÇÃ·¹ÀÌ¾î¿Í Ä«¸Ş¶ó »çÀÌ¿¡ Àå¾Ö¹°ÀÌ ÀÖ´Ù¸é, Linecast¸¦ ÅëÇØ
-        // ÇÃ·¹ÀÌ¾î°¡ º¸ÀÌ´Â ÃÖ¼Ò °Å¸®¸¦ °è»êÇÏ¿© Ä«¸Ş¶óÀÇ À§Ä¡¸¦ º¯°æ
+        // í”Œë ˆì´ì–´ì™€ ì¹´ë©”ë¼ ì‚¬ì´ì— ì¥ì• ë¬¼ì´ ìˆë‹¤ë©´, Linecastë¥¼ í†µí•´
+        // í”Œë ˆì´ì–´ê°€ ë³´ì´ëŠ” ìµœì†Œ ê±°ë¦¬ë¥¼ ê³„ì‚°í•˜ì—¬ ì¹´ë©”ë¼ì˜ ìœ„ì¹˜ë¥¼ ë³€ê²½
         if (Physics.Linecast(transform.position, realCameraWorldPosition, out RaycastHit hit, ~playerLayerMask))
         {
             cameraDistance = Mathf.Clamp(hit.distance, minCameraDistance, maxCameraDistance);

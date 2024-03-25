@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,12 +30,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Á¦ÇÑ ¼Óµµ¿¡ ´ëÇÑ ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç ¼Óµµ ºñÀ²À» movePower¿¡ °öÇÏ¿©
-        // ÇöÀç ¼Óµµ°¡ ºü¸¦¼ö·Ï ÀÌµ¿ÇÒ ¶§ ÁÖ´Â ÈûÀÌ ÀÛ¾ÆÁöµµ·Ï ¼³Á¤
+        // ì œí•œ ì†ë„ì— ëŒ€í•œ í”Œë ˆì´ì–´ì˜ í˜„ì¬ ì†ë„ ë¹„ìœ¨ì„ movePowerì— ê³±í•˜ì—¬
+        // í˜„ì¬ ì†ë„ê°€ ë¹ ë¥¼ìˆ˜ë¡ ì´ë™í•  ë•Œ ì£¼ëŠ” í˜ì´ ì‘ì•„ì§€ë„ë¡ ì„¤ì •
         float power = movePower * GetVelocityRatio();
         
-        // Ä«¸Ş¶ó°¡ È¸ÀüÇØµµ ¾Õ, µÚ, ¿ŞÂÊ, ¿À¸¥ÂÊ Á¶ÀÛÀÌ µ¿ÀÏÇÏµµ·Ï
-        // Ä«¸Ş¶óÀÇ È¸Àü°ªÀ» ÈûÀÇ ¹æÇâ¿¡ ´õÇØÁÜ
+        // ì¹´ë©”ë¼ê°€ íšŒì „í•´ë„ ì•, ë’¤, ì™¼ìª½, ì˜¤ë¥¸ìª½ ì¡°ì‘ì´ ë™ì¼í•˜ë„ë¡
+        // ì¹´ë©”ë¼ì˜ íšŒì „ê°’ì„ í˜ì˜ ë°©í–¥ì— ë”í•´ì¤Œ
         Vector3 cameraForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
         Vector3 cameraRight = new Vector3(cameraArm.right.x, 0f, cameraArm.right.z).normalized;
         
@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Á¦ÇÑ ¼Óµµ¿¡ ´ëÇÑ ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç ¼Óµµ ºñÀ²À» ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+    /// ì œí•œ ì†ë„ì— ëŒ€í•œ í”Œë ˆì´ì–´ì˜ í˜„ì¬ ì†ë„ ë¹„ìœ¨ì„ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
     /// </summary>
     private float GetVelocityRatio()
     {
