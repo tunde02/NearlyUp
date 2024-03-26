@@ -308,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movePower: 30
   jumpPower: 2000
-  velocityLimit: 15
+  velocityLimit: 20
   cameraArm: {fileID: 0}
   meshRenderer: {fileID: 4207436175349392651}
 --- !u!1 &9205435613761676798

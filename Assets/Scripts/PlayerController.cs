@@ -76,14 +76,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        ContactPoint[] contacts = new ContactPoint[collision.contactCount];
-        collision.GetContacts(contacts);
-
-        // 중심보다 낮은 접촉 지점이 하나라도 있는지 체크
-        onGround = false;
-        for (int i = 0; i < contacts.Length; ++i)
+        // 중심보다 낮은 접촉 지점이 있는지 체크
+        for (int i = 0; i < collision.contactCount; ++i)
         {
-            if (contacts[i].point.y + 0.2f <= transform.position.y)
+            if (collision.GetContact(i).point.y + 0.2f <= transform.position.y)
             {
                 onGround = true;
                 break;
@@ -94,6 +90,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         --contactCount;
+        onGround = false;
     }
 
     private bool CanJump()
@@ -120,9 +117,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && CanJump())
+        if (context.started && CanJump())
         {
             rb.AddForce(Vector3.up * jumpPower);
+            onGround = false;
         }
     }
 }
