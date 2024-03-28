@@ -1,0 +1,9 @@
+.my-slider Label {
+    width: 40%;
+}
+
+.my-slider #unity-dragger {
+    height: 100%;
+    margin-top: -24px;
+    width: 4%;
+}

@@ -4,28 +4,51 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float movePower = 75f;
-    public float jumpPower = 3000f;
-    public float velocityLimit = 20f;
+    public Rigidbody rb;
     public Transform cameraArm;
-
     public MeshRenderer meshRenderer;
 
 
+    // Player Input Action
+    private PlayerInput playerInput;
+    private readonly string gamePlayActionMap = "GamePlay";
+    private readonly string menuActionMap = "Menu";
+
+
     // Movement
-    private Rigidbody rb;
+    public float MovePower { get; set; } = 40f;
+    public float Mass
+    {
+        get => rb.mass;
+        set => rb.mass = value;
+    }
+    private float _velocityLimit = 15f;
+    public float VelocityLimit
+    {
+        get => _velocityLimit;
+        set
+        {
+            _velocityLimit = value;
+            sqrVelocityLimitInverse = 1 / (VelocityLimit * VelocityLimit);
+        }
+    }
     private Vector2 moveAmount;
     private float sqrVelocityLimitInverse;
 
     // Jump
+    public float JumpPower { get; set; } = 2000f;
     private int contactCount = 0;
     private bool onGround = false;
 
 
+    private void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+    }
+
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        sqrVelocityLimitInverse = 1 / (velocityLimit * velocityLimit);
+        sqrVelocityLimitInverse = 1 / (VelocityLimit * VelocityLimit);
     }
 
     private void Update()
@@ -37,7 +60,7 @@ public class PlayerController : MonoBehaviour
     {
         // 제한 속도에 대한 플레이어의 현재 속도 비율을 movePower에 곱하여
         // 현재 속도가 빠를수록 이동할 때 주는 힘이 작아지도록 설정
-        float power = movePower * GetVelocityRatio();
+        float power = MovePower * GetVelocityRatio();
 
         // 카메라가 회전해도 앞, 뒤, 왼쪽, 오른쪽 조작이 동일하도록
         // 카메라의 회전값을 힘의 방향에 더해줌
@@ -119,8 +142,24 @@ public class PlayerController : MonoBehaviour
     {
         if (context.started && CanJump())
         {
-            rb.AddForce(Vector3.up * jumpPower);
+            rb.AddForce(Vector3.up * JumpPower);
             onGround = false;
+        }
+    }
+
+    public void SwitchToGamePlayActionMap(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            playerInput.SwitchCurrentActionMap(gamePlayActionMap);
+        }
+    }
+
+    public void SwitchToMenuActionMap(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            playerInput.SwitchCurrentActionMap(menuActionMap);
         }
     }
 }

@@ -9,12 +9,13 @@ public class CameraController : MonoBehaviour
     public Transform realCamera;
     public Transform followCamera;
     public LayerMask playerLayerMask;
-    public float cameraAngleDeadzone = 10f;
-    public float minCameraDistance = 3f;
-    public float maxCameraDistance = 15f;
-    public float sensitivity = 10f;
-    public float smoothness = 100f;
 
+
+    private readonly float cameraAngleDeadzone = 10f;
+    private readonly float minCameraDistance = 3f;
+    public float MaxCameraDistance { get; set; } = 12f;
+    public float Sensitivity { get; set; } = 15f;
+    private readonly float smoothness = 100f;
 
     private float mouseAxisX;
     private float mouseAxisY;
@@ -29,8 +30,8 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         Vector3 cameraAngle = transform.localRotation.eulerAngles;
-        float rotationX = cameraAngle.x - mouseAxisY * sensitivity * Time.deltaTime;
-        float rotationY = cameraAngle.y + mouseAxisX * sensitivity * Time.deltaTime;
+        float rotationX = cameraAngle.x - mouseAxisY * Sensitivity * Time.deltaTime;
+        float rotationY = cameraAngle.y + mouseAxisX * Sensitivity * Time.deltaTime;
 
         // 카메라가 뒤집어지지 않도록 회전 각도 제한
         if (-cameraAngleDeadzone < rotationX - 90f && rotationX - 90f < 0f)
@@ -56,14 +57,14 @@ public class CameraController : MonoBehaviour
     private void LateUpdate()
     {
         Vector3 realCameraNormal = realCamera.localPosition.normalized;
-        Vector3 realCameraWorldPosition = transform.TransformPoint(realCameraNormal * maxCameraDistance);
-        float cameraDistance = maxCameraDistance;
+        Vector3 realCameraWorldPosition = transform.TransformPoint(realCameraNormal * MaxCameraDistance);
+        float cameraDistance = MaxCameraDistance;
 
         // 플레이어와 카메라 사이에 장애물이 있다면, Linecast를 통해
         // 플레이어가 보이는 최소 거리를 계산하여 카메라의 위치를 변경
         if (Physics.Linecast(transform.position, realCameraWorldPosition, out RaycastHit hit, ~playerLayerMask))
         {
-            cameraDistance = Mathf.Clamp(hit.distance, minCameraDistance, maxCameraDistance);
+            cameraDistance = Mathf.Clamp(hit.distance, minCameraDistance, MaxCameraDistance);
             Debug.DrawLine(followCamera.position, hit.point, Color.red);
         }
 

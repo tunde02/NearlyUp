@@ -1,0 +1,52 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/MenuUSS.uss?fileID=7433441132597879392&amp;guid=5767e52184244514fb8566626f1bca95&amp;type=3#MenuUSS" />
+    <ui:VisualElement style="flex-direction: row; background-color: rgba(255, 255, 255, 0.59); -unity-font: url(&quot;project://database/Assets/Fonts/Maplestory%20Light.ttf?fileID=12800000&amp;guid=0224bd5b4a79cd140a5c41f5ee0dcd26&amp;type=3#Maplestory Light&quot;); -unity-font-definition: url(&quot;project://database/Assets/Fonts/Maplestory%20Light%20SDF.asset?fileID=11400000&amp;guid=5ec9625078c26e9489c65e125037835d&amp;type=2#Maplestory Light SDF&quot;);">
+        <ui:ScrollView style="font-size: 32px; -unity-font-style: bold; width: 50%;">
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; margin-top: 10px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px;">
+                <ui:Slider high-value="100" name="movePowerSlider" low-value="5" focusable="false" label="이동속도" class="my-slider" style="width: 70%; -unity-text-align: middle-center; display: flex; -unity-font-style: bold;" />
+                <ui:FloatField value="2000" name="movePowerField" focusable="false" style="width: 15%; font-size: 20px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+                <ui:Slider high-value="7000" name="jumpPowerSlider" low-value="500" focusable="false" label="점프력" class="my-slider" style="width: 70%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                <ui:FloatField value="2000" name="jumpPowerField" focusable="false" style="width: 15%; font-size: 20px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+                <ui:Slider label="무게" high-value="20" name="massSlider" low-value="1" focusable="false" class="my-slider" style="width: 70%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                <ui:FloatField value="2000" name="massField" focusable="false" style="width: 15%; font-size: 20px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+                <ui:Slider label="제한속도" high-value="40" name="velocityLimitSlider" low-value="5" focusable="false" class="my-slider" style="width: 70%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                <ui:FloatField value="2000" name="velocityLimitField" focusable="false" style="width: 15%; font-size: 20px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+                <ui:Slider label="카메라 거리" high-value="20" name="maxCameraDistanceSlider" low-value="10" focusable="false" class="my-slider" style="width: 70%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                <ui:FloatField value="2000" name="maxCameraDistanceField" focusable="false" style="width: 15%; font-size: 20px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+                <ui:Slider label="카메라 감도" high-value="30" name="sensitivitySlider" low-value="5" focusable="false" class="my-slider" style="width: 70%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                <ui:FloatField value="2000" name="sensitivityField" focusable="false" style="width: 15%; font-size: 20px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+                <ui:Slider label="동적 마찰" high-value="1" name="dynamicFrictionSlider" low-value="0" focusable="false" class="my-slider" style="width: 70%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                <ui:FloatField value="2000" name="dynamicFrictionField" focusable="false" style="width: 15%; font-size: 20px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+                <ui:Slider label="정적 마찰" high-value="1" name="staticFrictionSlider" low-value="0" focusable="false" class="my-slider" style="width: 70%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                <ui:FloatField value="2000" name="staticFrictionField" focusable="false" style="width: 15%; font-size: 20px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+                <ui:Slider label="탄성" high-value="1" name="bouncinessSlider" low-value="0" focusable="false" class="my-slider" style="width: 70%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                <ui:FloatField value="2000" name="bouncinessField" focusable="false" style="width: 15%; font-size: 20px;" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
+                <ui:Slider label="중력" high-value="20" name="gravitySlider" low-value="1" focusable="false" class="my-slider" style="width: 70%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                <ui:FloatField value="2000" name="gravityField" focusable="false" style="width: 15%; font-size: 20px;" />
+            </ui:VisualElement>
+        </ui:ScrollView>
+        <ui:ScrollView mode="Horizontal" style="width: 50%; align-self: center; flex-direction: row;">
+            <ui:Button text="리셋" parse-escape-sequences="true" display-tooltip-when-elided="true" name="resetButton" style="width: 100px; height: 100px; margin-top: 40px; margin-right: 40px; margin-bottom: 40px; margin-left: 40px; -unity-font-style: bold; font-size: 32px;" />
+            <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="reloadButton" text="리로드" style="width: 100px; height: 100px; margin-top: 40px; margin-right: 40px; margin-bottom: 40px; margin-left: 40px; -unity-font-style: bold; font-size: 32px;" />
+            <ui:Button text="종료" parse-escape-sequences="true" display-tooltip-when-elided="true" name="quitButton" style="width: 100px; height: 100px; margin-top: 40px; margin-right: 40px; margin-bottom: 40px; margin-left: 40px; -unity-font-style: bold; font-size: 32px;" />
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>
