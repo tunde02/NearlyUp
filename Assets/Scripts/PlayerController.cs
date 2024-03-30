@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     private readonly string gamePlayActionMap = "GamePlay";
     private readonly string menuActionMap = "Menu";
 
-
     // Movement
     public float MovePower { get; set; } = 40f;
     public float Mass
@@ -36,7 +35,7 @@ public class PlayerController : MonoBehaviour
     private float sqrVelocityLimitInverse;
 
     // Jump
-    public float JumpPower { get; set; } = 2000f;
+    public float JumpPower { get; set; } = 2300f;
     private int contactCount = 0;
     private bool onGround = false;
 
@@ -102,7 +101,7 @@ public class PlayerController : MonoBehaviour
         // 중심보다 낮은 접촉 지점이 있는지 체크
         for (int i = 0; i < collision.contactCount; ++i)
         {
-            if (collision.GetContact(i).point.y + 0.2f <= transform.position.y)
+            if (collision.GetContact(i).point.y + 0.4f <= transform.position.y)
             {
                 onGround = true;
                 break;
