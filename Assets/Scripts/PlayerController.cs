@@ -106,17 +106,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision other)
     {
         ++contactCount;
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionStay(Collision other)
     {
         // 중심보다 낮은 접촉 지점이 있는지 체크
-        for (int i = 0; i < collision.contactCount; ++i)
+        for (int i = 0; i < other.contactCount; ++i)
         {
-            if (collision.GetContact(i).point.y + 0.4f <= transform.position.y)
+            if (other.GetContact(i).point.y + 0.4f <= transform.position.y)
             {
                 onGround = true;
                 break;
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnCollisionExit(Collision other)
     {
         --contactCount;
         onGround = false;
