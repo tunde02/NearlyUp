@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 
@@ -39,6 +39,13 @@ public class PlayerController : MonoBehaviour
     private int contactCount = 0;
     private bool onGround = false;
 
+    // Slow Motion
+    private bool inSlowMotion = false;
+    public float slowMotionGauge = 10f;
+    private readonly float maxSlowMotionGauge = 10f;
+    private float gaugeRecoveryAmount = 1.0f;
+    private float gaugeConsumptionAmount = 2.0f;
+
 
     private void Awake()
     {
@@ -52,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        UpdateSlowMotionGauge();
+
         DebugCanJump();
     }
 
@@ -69,6 +78,12 @@ public class PlayerController : MonoBehaviour
         Vector3 force = cameraRight * moveAmount.x + cameraForward * moveAmount.y;
         Vector3 torque = cameraRight * moveAmount.y - cameraForward * moveAmount.x;
         force.y = -0.2f;
+
+        if (inSlowMotion)
+        {
+            force *= 2f;
+            torque *= 2f;
+        }
 
         rb.AddForce(force * power);
         rb.AddTorque(torque * power);
@@ -143,6 +158,71 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector3.up * JumpPower);
             onGround = false;
+        }
+    }
+
+    public void OnSlowMotion(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Debug.LogWarning("Slow Motion Start");
+
+            inSlowMotion = true;
+
+            GameManager.Inst.SlowGame();
+        }
+        else if (context.canceled)
+        {
+            Debug.LogWarning("Slow Motion End");
+
+            inSlowMotion = false;
+
+            if (!GameManager.Inst.IsGamePaused)
+            {
+                GameManager.Inst.ResumeGame();
+            }
+        }
+    }
+
+    private void UpdateSlowMotionGauge()
+    {
+        if (inSlowMotion)
+        {
+            ConsumeSlowMotionGauge();
+
+            if (slowMotionGauge <= 0f)
+            {
+                inSlowMotion = false;
+                GameManager.Inst.ResumeGame();
+            }
+        }
+        else
+        {
+            RecoverSlowMotionGauge();
+        }
+    }
+
+    private void RecoverSlowMotionGauge()
+    {
+        if (slowMotionGauge < maxSlowMotionGauge)
+        {
+            slowMotionGauge += Time.deltaTime * gaugeRecoveryAmount;
+        }
+        else if (slowMotionGauge > maxSlowMotionGauge)
+        {
+            slowMotionGauge = maxSlowMotionGauge;
+        }
+    }
+
+    private void ConsumeSlowMotionGauge()
+    {
+        if (slowMotionGauge > 0f)
+        {
+            slowMotionGauge -= Time.deltaTime * 2.0f * gaugeConsumptionAmount;
+        }
+        else if (slowMotionGauge < 0f)
+        {
+            slowMotionGauge = 0f;
         }
     }
 

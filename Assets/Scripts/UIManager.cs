@@ -150,8 +150,8 @@ public class UIManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        // Physic MaterialÀº °ÔÀÓ ÁøÇà Áß º¯°æµÈ °ªÀÌ ±×´ë·Î ÀúÀåµÇ±â ¶§¹®¿¡
-        // °ÔÀÓ ½ÃÀÛ Àü ÀúÀåÇØµĞ °ªÀ¸·Î º¹±¸
+        // Physic Materialì€ ê²Œì„ ì§„í–‰ ì¤‘ ë³€ê²½ëœ ê°’ì´ ê·¸ëŒ€ë¡œ ì €ì¥ë˜ê¸° ë•Œë¬¸ì—
+        // ê²Œì„ ì‹œì‘ ì „ ì €ì¥í•´ë‘” ê°’ìœ¼ë¡œ ë³µêµ¬
         GameManager.Inst.SetDynamicFriction(parameters["dynamicFriction"].initialValue);
         GameManager.Inst.SetStaticFriction(parameters["staticFriction"].initialValue);
         GameManager.Inst.SetBounciness(parameters["bounciness"].initialValue);

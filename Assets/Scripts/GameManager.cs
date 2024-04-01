@@ -8,14 +8,24 @@ public class GameManager : Singleton<GameManager>
     public PhysicMaterial physicMaterial;
 
 
+    public bool IsGamePaused { get; set; } = false;
+
+
     public void PauseGame()
     {
         Time.timeScale = 0f;
+        IsGamePaused = true;
+    }
+
+    public void SlowGame()
+    {
+        Time.timeScale = 0.5f;
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1.0f;
+        IsGamePaused = false;
     }
 
     public float GetPlayerMovePower()

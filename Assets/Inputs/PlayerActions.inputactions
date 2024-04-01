@@ -42,6 +42,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Slow Motion",
+                    "type": "Button",
+                    "id": "27ee1aad-607d-41ab-90a2-0d4a196aee3c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Open Menu",
                     "type": "Button",
                     "id": "73fd426b-660a-4565-b487-d8df00a08bd8",
@@ -225,6 +234,28 @@
                     "processors": "",
                     "groups": "PC",
                     "action": "Open Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f32af36c-ce7a-49e9-8ca8-a8a1a5f4b28d",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slow Motion",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "901c4d8e-0eab-444b-9077-a60dafe3a651",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slow Motion",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

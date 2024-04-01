@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
 
     private readonly float cameraAngleDeadzone = 10f;
     private readonly float minCameraDistance = 3f;
-    public float MaxCameraDistance { get; set; } = 12f;
+    public float MaxCameraDistance { get; set; } = 14f;
     public float Sensitivity { get; set; } = 15f;
     private readonly float smoothness = 100f;
 
