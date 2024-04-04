@@ -58,6 +58,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Use Item 1",
+                    "type": "Button",
+                    "id": "cd121e77-e3a8-48a8-8ac2-2591d7acd309",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Use Item 2",
+                    "type": "Button",
+                    "id": "922c7ef2-ea10-4dfd-bcf1-5aa35688db81",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Use Item 3",
+                    "type": "Button",
+                    "id": "b4c885db-2167-431a-8e37-fbb2fcd0a424",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -256,6 +283,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Slow Motion",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cce5d0d6-76de-4900-b940-d19c163e7d91",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use Item 1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "26d29d8a-8887-4bd4-967a-15fc3a3f1c9d",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use Item 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "26ada7c9-9913-4350-be45-201afa2ad2d9",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use Item 3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

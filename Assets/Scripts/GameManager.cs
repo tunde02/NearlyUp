@@ -127,4 +127,14 @@ public class GameManager : Singleton<GameManager>
     {
         Physics.gravity = Vector3.down * newGravity;
     }
+
+    public void EnableGamePlayInputActionMap()
+    {
+        playerController.EnableGamePlayInputActionMap();
+    }
+
+    public void DisableGamePlayInputActionMap()
+    {
+        playerController.DisableGamePlayInputActionMap();
+    }
 }

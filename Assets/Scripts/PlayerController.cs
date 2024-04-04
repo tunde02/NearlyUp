@@ -1,9 +1,18 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 public class PlayerController : MonoBehaviour
 {
+    public static event EventHandler<OnInventoryChangedArgs> OnInventoryChanged;
+    public class OnInventoryChangedArgs : EventArgs
+    {
+        public BaseItem[] inventory;
+    }
+
+
     public Rigidbody rb;
     public Transform cameraArm;
     public MeshRenderer meshRenderer;
@@ -45,6 +54,11 @@ public class PlayerController : MonoBehaviour
     private readonly float maxSlowMotionGauge = 10f;
     private float gaugeRecoveryAmount = 1.0f;
     private float gaugeConsumptionAmount = 2.0f;
+
+    // Item
+    public BaseItem[] Inventory { get; private set; } = { null, null, null };
+    [SerializeField] private int selectedItemIndex = 0;
+    public float Money { get; set; } = 0f;
 
 
     private void Awake()
@@ -165,16 +179,12 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.LogWarning("Slow Motion Start");
-
             inSlowMotion = true;
 
             GameManager.Inst.SlowGame();
         }
         else if (context.canceled)
         {
-            Debug.LogWarning("Slow Motion End");
-
             inSlowMotion = false;
 
             if (!GameManager.Inst.IsGamePaused)
@@ -226,6 +236,79 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnUseItem_1(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            UseItemAt(0);
+        }
+    }
+
+    public void OnUseItem_2(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            UseItemAt(1);
+        }
+    }
+
+    public void OnUseItem_3(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            UseItemAt(2);
+        }
+    }
+
+    private void UseItemAt(int index)
+    {
+        if (Inventory[index] == null)
+        {
+            Debug.Log($"PlayerController.UseItemAt() : No item at inventory {index}");
+            return;
+        }
+
+        Debug.Log($"PlayerController.UseItemAt({index}) : Use {Inventory[index].ItemName})");
+
+        Inventory[index].UseItem(this);
+        Inventory[index] = null;
+
+        OnInventoryChanged?.Invoke(this, new OnInventoryChangedArgs { inventory = Inventory });
+    }
+
+    public void BuyItem(BaseItem item)
+    {
+        int emptyInventoryIndex = GetEmptyInventoryIndex();
+
+        if (emptyInventoryIndex == -1)
+        {
+            Debug.Log("Can't buy item");
+            return;
+        }
+
+        Debug.Log($"PlayerController.BuyItem({item.ItemName}) at {emptyInventoryIndex}");
+
+        Inventory[emptyInventoryIndex] = item;
+
+        OnInventoryChanged?.Invoke(this, new OnInventoryChangedArgs { inventory = Inventory });
+    }
+
+    private int GetEmptyInventoryIndex()
+    {
+        for (int i = 0; i < Inventory.Length; i++)
+        {
+            int idx = (selectedItemIndex + i) % Inventory.Length;
+
+            if (Inventory[idx] == null)
+            {
+                return idx;
+            }
+        }
+
+        // Inventory Full
+        return -1;
+    }
+
     public void SwitchToGamePlayActionMap(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -240,5 +323,15 @@ public class PlayerController : MonoBehaviour
         {
             playerInput.SwitchCurrentActionMap(menuActionMap);
         }
+    }
+
+    public void EnableGamePlayInputActionMap()
+    {
+        playerInput.actions.FindActionMap(gamePlayActionMap).Enable();
+    }
+
+    public void DisableGamePlayInputActionMap()
+    {
+        playerInput.actions.FindActionMap(gamePlayActionMap).Disable();
     }
 }
