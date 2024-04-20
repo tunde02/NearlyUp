@@ -7,7 +7,7 @@
                 <ui:FloatField value="2000" name="movePowerField" focusable="false" style="width: 15%; font-size: 20px;" />
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; flex-direction: row; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">
-                <ui:Slider high-value="7000" name="jumpPowerSlider" low-value="500" focusable="false" label="점프력" class="my-slider" style="width: 70%; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                <ui:Slider high-value="100" name="jumpPowerSlider" low-value="10" focusable="false" label="점프력" class="my-slider" style="width: 70%; -unity-font-style: bold; -unity-text-align: middle-center;" />
                 <ui:FloatField value="2000" name="jumpPowerField" focusable="false" style="width: 15%; font-size: 20px;" />
             </ui:VisualElement>
             <ui:VisualElement style="flex-grow: 1; flex-direction: row; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px;">

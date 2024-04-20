@@ -24,13 +24,13 @@ public class PlayerController : MonoBehaviour
     private readonly string menuActionMap = "Menu";
 
     // Movement
-    public float MovePower { get; set; } = 40f;
+    public float MovePower { get; set; } = 25f;
     public float Mass
     {
         get => rb.mass;
         set => rb.mass = value;
     }
-    private float _velocityLimit = 15f;
+    private float _velocityLimit = 25f;
     public float VelocityLimit
     {
         get => _velocityLimit;
@@ -40,13 +40,15 @@ public class PlayerController : MonoBehaviour
             sqrVelocityLimitInverse = 1 / (VelocityLimit * VelocityLimit);
         }
     }
-    private Vector2 moveAmount;
     private float sqrVelocityLimitInverse;
+    private Vector2 moveAmount;
 
     // Jump
-    public float JumpPower { get; set; } = 2300f;
+    public float JumpPower { get; set; } = 30f;
     private int contactCount = 0;
     private bool onGround = false;
+    private readonly float contactPointHeightLimit = 0.2f;
+    private bool isJumpKeyPressed = false;
 
     // Slow Motion
     private bool inSlowMotion = false;
@@ -80,6 +82,12 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        HandleMovement();
+        HandleJump();
+    }
+
+    private void HandleMovement()
+    {
         // 제한 속도에 대한 플레이어의 현재 속도 비율을 movePower에 곱하여
         // 현재 속도가 빠를수록 이동할 때 주는 힘이 작아지도록 설정
         float power = MovePower * GetVelocityRatio();
@@ -91,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
         Vector3 force = cameraRight * moveAmount.x + cameraForward * moveAmount.y;
         Vector3 torque = cameraRight * moveAmount.y - cameraForward * moveAmount.x;
-        force.y = -0.2f;
+        // force.y = -0.2f;
 
         if (inSlowMotion)
         {
@@ -101,6 +109,19 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(force * power);
         rb.AddTorque(torque * power);
+    }
+
+    private void HandleJump()
+    {
+        if (isJumpKeyPressed && CanJump())
+        {
+            // 힘이 가해지기 전에 OnCollisionStay()가 한 번 더 실행되어
+            // 점프가 연속으로 시전되는 것을 막기위해 미리 플레이어를 살짝 띄움
+            transform.position = new(transform.position.x, transform.position.y + 0.1f, transform.position.z);
+
+            rb.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
+            onGround = false;
+        }
     }
 
     /// <summary>
@@ -116,7 +137,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            return 0f;
+            return 0.1f;
         }
     }
 
@@ -130,7 +151,7 @@ public class PlayerController : MonoBehaviour
         // 중심보다 낮은 접촉 지점이 있는지 체크
         for (int i = 0; i < other.contactCount; ++i)
         {
-            if (other.GetContact(i).point.y + 0.4f <= transform.position.y)
+            if (other.GetContact(i).point.y + contactPointHeightLimit <= transform.position.y)
             {
                 onGround = true;
                 break;
@@ -168,10 +189,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started && CanJump())
+        if (context.performed)
         {
-            rb.AddForce(Vector3.up * JumpPower);
-            onGround = false;
+            isJumpKeyPressed = true;
+        }
+        else if (context.canceled)
+        {
+            isJumpKeyPressed = false;
         }
     }
 
