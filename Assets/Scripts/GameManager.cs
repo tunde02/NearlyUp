@@ -28,6 +28,11 @@ public class GameManager : Singleton<GameManager>
         IsGamePaused = false;
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     public float GetPlayerMovePower()
     {
         return playerController.MovePower;
