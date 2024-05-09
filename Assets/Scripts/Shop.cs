@@ -42,8 +42,8 @@ public class Shop : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        GameManager.Inst.DisableGamePlayInputActionMap();
-        GameManager.Inst.PauseGame();
+        GameManager.Instance.DisableGamePlayInputActionMap();
+        GameManager.Instance.PauseGame();
     }
 
     public void CloseShopUI()
@@ -53,8 +53,8 @@ public class Shop : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        GameManager.Inst.EnableGamePlayInputActionMap();
-        GameManager.Inst.ResumeGame();
+        GameManager.Instance.EnableGamePlayInputActionMap();
+        GameManager.Instance.ResumeGame();
     }
 
     public void PlayerController_OnInventoryChanged(object sender, PlayerController.OnInventoryChangedArgs eventArgs)

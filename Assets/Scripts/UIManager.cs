@@ -22,43 +22,43 @@ public class UIManager : MonoBehaviour
         {
             {
                 "movePower",
-                (GameManager.Inst.GetPlayerMovePower(), root.Q<Slider>("movePowerSlider"), root.Q<FloatField>("movePowerField"))
+                (GameManager.Instance.GetPlayerMovePower(), root.Q<Slider>("movePowerSlider"), root.Q<FloatField>("movePowerField"))
             },
             {
                 "jumpPower",
-                (GameManager.Inst.GetPlayerJumpPower(), root.Q<Slider>("jumpPowerSlider"), root.Q<FloatField>("jumpPowerField"))
+                (GameManager.Instance.GetPlayerJumpPower(), root.Q<Slider>("jumpPowerSlider"), root.Q<FloatField>("jumpPowerField"))
             },
             {
                 "mass",
-                (GameManager.Inst.GetPlayerMass(), root.Q<Slider>("massSlider"), root.Q<FloatField>("massField"))
+                (GameManager.Instance.GetPlayerMass(), root.Q<Slider>("massSlider"), root.Q<FloatField>("massField"))
             },
             {
                 "velocityLimit",
-                (GameManager.Inst.GetPlayerVelocityLimit(), root.Q<Slider>("velocityLimitSlider"), root.Q<FloatField>("velocityLimitField"))
+                (GameManager.Instance.GetPlayerVelocityLimit(), root.Q<Slider>("velocityLimitSlider"), root.Q<FloatField>("velocityLimitField"))
             },
             {
                 "maxCameraDistance",
-                (GameManager.Inst.GetMaxCameraDistance(), root.Q<Slider>("maxCameraDistanceSlider"), root.Q<FloatField>("maxCameraDistanceField"))
+                (GameManager.Instance.GetMaxCameraDistance(), root.Q<Slider>("maxCameraDistanceSlider"), root.Q<FloatField>("maxCameraDistanceField"))
             },
             {
                 "sensitivity",
-                (GameManager.Inst.GetSensitivity(), root.Q<Slider>("sensitivitySlider"), root.Q<FloatField>("sensitivityField"))
+                (GameManager.Instance.GetSensitivity(), root.Q<Slider>("sensitivitySlider"), root.Q<FloatField>("sensitivityField"))
             },
             {
                 "dynamicFriction",
-                (GameManager.Inst.GetDynamicFriction(), root.Q<Slider>("dynamicFrictionSlider"), root.Q<FloatField>("dynamicFrictionField"))
+                (GameManager.Instance.GetDynamicFriction(), root.Q<Slider>("dynamicFrictionSlider"), root.Q<FloatField>("dynamicFrictionField"))
             },
             {
                 "staticFriction",
-                (GameManager.Inst.GetStaticFriction(), root.Q<Slider>("staticFrictionSlider"), root.Q<FloatField>("staticFrictionField"))
+                (GameManager.Instance.GetStaticFriction(), root.Q<Slider>("staticFrictionSlider"), root.Q<FloatField>("staticFrictionField"))
             },
             {
                 "bounciness",
-                (GameManager.Inst.GetBounciness(), root.Q<Slider>("bouncinessSlider"), root.Q<FloatField>("bouncinessField"))
+                (GameManager.Instance.GetBounciness(), root.Q<Slider>("bouncinessSlider"), root.Q<FloatField>("bouncinessField"))
             },
             {
                 "gravity",
-                (GameManager.Inst.GetGravity(), root.Q<Slider>("gravitySlider"), root.Q<FloatField>("gravityField"))
+                (GameManager.Instance.GetGravity(), root.Q<Slider>("gravitySlider"), root.Q<FloatField>("gravityField"))
             },
         };
 
@@ -73,16 +73,16 @@ public class UIManager : MonoBehaviour
         parameters["bounciness"].slider.RegisterValueChangedCallback(OnBouncinessSliderChanged);
         parameters["gravity"].slider.RegisterValueChangedCallback(OnGravitySliderChanged);
 
-        parameters["movePower"].slider.value = GameManager.Inst.GetPlayerMovePower();
-        parameters["jumpPower"].slider.value = GameManager.Inst.GetPlayerJumpPower();
-        parameters["mass"].slider.value = GameManager.Inst.GetPlayerMass();
-        parameters["velocityLimit"].slider.value = GameManager.Inst.GetPlayerVelocityLimit();
-        parameters["maxCameraDistance"].slider.value = GameManager.Inst.GetMaxCameraDistance();
-        parameters["sensitivity"].slider.value = GameManager.Inst.GetSensitivity();
-        parameters["dynamicFriction"].slider.value = GameManager.Inst.GetDynamicFriction();
-        parameters["staticFriction"].slider.value = GameManager.Inst.GetStaticFriction();
-        parameters["bounciness"].slider.value = GameManager.Inst.GetBounciness();
-        parameters["gravity"].slider.value = GameManager.Inst.GetGravity();
+        parameters["movePower"].slider.value = GameManager.Instance.GetPlayerMovePower();
+        parameters["jumpPower"].slider.value = GameManager.Instance.GetPlayerJumpPower();
+        parameters["mass"].slider.value = GameManager.Instance.GetPlayerMass();
+        parameters["velocityLimit"].slider.value = GameManager.Instance.GetPlayerVelocityLimit();
+        parameters["maxCameraDistance"].slider.value = GameManager.Instance.GetMaxCameraDistance();
+        parameters["sensitivity"].slider.value = GameManager.Instance.GetSensitivity();
+        parameters["dynamicFriction"].slider.value = GameManager.Instance.GetDynamicFriction();
+        parameters["staticFriction"].slider.value = GameManager.Instance.GetStaticFriction();
+        parameters["bounciness"].slider.value = GameManager.Instance.GetBounciness();
+        parameters["gravity"].slider.value = GameManager.Instance.GetGravity();
 
         root.Q<Button>("resetButton").RegisterCallback<ClickEvent>(OnResetButtonClicked);
         root.Q<Button>("reloadButton").RegisterCallback<ClickEvent>(OnReloadButtonClicked);
@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
             UnityEngine.Cursor.lockState = CursorLockMode.None;
             UnityEngine.Cursor.visible = true;
 
-            GameManager.Inst.PauseGame();
+            GameManager.Instance.PauseGame();
         }
     }
 
@@ -113,7 +113,7 @@ public class UIManager : MonoBehaviour
             UnityEngine.Cursor.lockState = CursorLockMode.Locked;
             UnityEngine.Cursor.visible = false;
 
-            GameManager.Inst.ResumeGame();
+            GameManager.Instance.ResumeGame();
         }
     }
 
@@ -131,7 +131,8 @@ public class UIManager : MonoBehaviour
 
     public void OnQuitButtonClicked(ClickEvent evt)
     {
-        Application.Quit();
+        // GameManager.Instance.QuitGame();
+        SceneManager.LoadScene("Level List");
     }
 
     private void ResetParameters()
@@ -152,68 +153,68 @@ public class UIManager : MonoBehaviour
     {
         // Physic Material은 게임 진행 중 변경된 값이 그대로 저장되기 때문에
         // 게임 시작 전 저장해둔 값으로 복구
-        GameManager.Inst.SetDynamicFriction(parameters["dynamicFriction"].initialValue);
-        GameManager.Inst.SetStaticFriction(parameters["staticFriction"].initialValue);
-        GameManager.Inst.SetBounciness(parameters["bounciness"].initialValue);
+        GameManager.Instance.SetDynamicFriction(parameters["dynamicFriction"].initialValue);
+        GameManager.Instance.SetStaticFriction(parameters["staticFriction"].initialValue);
+        GameManager.Instance.SetBounciness(parameters["bounciness"].initialValue);
     }
 
     private void OnMovePowerSliderChanged(ChangeEvent<float> evt)
     {
-        GameManager.Inst.SetPlayerMovePower(evt.newValue);
+        GameManager.Instance.SetPlayerMovePower(evt.newValue);
         parameters["movePower"].field.value = evt.newValue;
     }
 
     private void OnJumpPowerSliderChanged(ChangeEvent<float> evt)
     {
-        GameManager.Inst.SetPlayerJumpPower(evt.newValue);
+        GameManager.Instance.SetPlayerJumpPower(evt.newValue);
         parameters["jumpPower"].field.value = evt.newValue;
     }
 
     private void OnMassSliderChanged(ChangeEvent<float> evt)
     {
-        GameManager.Inst.SetPlayerMass(evt.newValue);
+        GameManager.Instance.SetPlayerMass(evt.newValue);
         parameters["mass"].field.value = evt.newValue;
     }
 
     private void OnVelocityLimitSliderChanged(ChangeEvent<float> evt)
     {
-        GameManager.Inst.SetPlayerVelocityLimit(evt.newValue);
+        GameManager.Instance.SetPlayerVelocityLimit(evt.newValue);
         parameters["velocityLimit"].field.value = evt.newValue;
     }
 
     private void OnMaxCameraDistanceliderChanged(ChangeEvent<float> evt)
     {
-        GameManager.Inst.SetMaxCameraDistance(evt.newValue);
+        GameManager.Instance.SetMaxCameraDistance(evt.newValue);
         parameters["maxCameraDistance"].field.value = evt.newValue;
     }
 
     private void OnSensitivitySliderChanged(ChangeEvent<float> evt)
     {
-        GameManager.Inst.SetSensitivity(evt.newValue);
+        GameManager.Instance.SetSensitivity(evt.newValue);
         parameters["sensitivity"].field.value = evt.newValue;
     }
 
     private void OnDynamicFrictionSliderChanged(ChangeEvent<float> evt)
     {
-        GameManager.Inst.SetDynamicFriction(evt.newValue);
+        GameManager.Instance.SetDynamicFriction(evt.newValue);
         parameters["dynamicFriction"].field.value = evt.newValue;
     }
 
     private void OnStaticFrictionSliderChanged(ChangeEvent<float> evt)
     {
-        GameManager.Inst.SetStaticFriction(evt.newValue);
+        GameManager.Instance.SetStaticFriction(evt.newValue);
         parameters["staticFriction"].field.value = evt.newValue;
     }
 
     private void OnBouncinessSliderChanged(ChangeEvent<float> evt)
     {
-        GameManager.Inst.SetBounciness(evt.newValue);
+        GameManager.Instance.SetBounciness(evt.newValue);
         parameters["bounciness"].field.value = evt.newValue;
     }
 
     private void OnGravitySliderChanged(ChangeEvent<float> evt)
     {
-        GameManager.Inst.SetGravity(evt.newValue);
+        GameManager.Instance.SetGravity(evt.newValue);
         parameters["gravity"].field.value = evt.newValue;
     }
 }

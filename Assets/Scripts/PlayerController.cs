@@ -205,15 +205,15 @@ public class PlayerController : MonoBehaviour
         {
             inSlowMotion = true;
 
-            GameManager.Inst.SlowGame();
+            GameManager.Instance.SlowGame();
         }
         else if (context.canceled)
         {
             inSlowMotion = false;
 
-            if (!GameManager.Inst.IsGamePaused)
+            if (!GameManager.Instance.IsGamePaused)
             {
-                GameManager.Inst.ResumeGame();
+                GameManager.Instance.ResumeGame();
             }
         }
     }
@@ -227,7 +227,7 @@ public class PlayerController : MonoBehaviour
             if (slowMotionGauge <= 0f)
             {
                 inSlowMotion = false;
-                GameManager.Inst.ResumeGame();
+                GameManager.Instance.ResumeGame();
             }
         }
         else
