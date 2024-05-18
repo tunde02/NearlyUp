@@ -1,4 +1,19 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+
+public struct SettingValues
+{
+    public float movePower;
+    public float jumpPower;
+    public float mass;
+    public float gravity;
+    public float drag;
+    public float cameraDistance;
+    public float cameraSensitivity;
+    public float bounciness;
+    public float velocityLimit;
+}
 
 
 public class GameManager : Singleton<GameManager>
@@ -10,6 +25,33 @@ public class GameManager : Singleton<GameManager>
 
     public bool IsGamePaused { get; set; } = false;
 
+
+    private SettingValues settingValues = new() {
+        movePower = 25f,
+        jumpPower = 30f,
+        mass = 5f,
+        gravity = 6.8f,
+        drag = 0.1f,
+        cameraDistance = 7f,
+        cameraSensitivity = 15f,
+        bounciness = 0.05f,
+        velocityLimit = 25f
+    };
+    private SettingValues initialSettingValues;
+
+
+    private void Start()
+    {
+        initialSettingValues = settingValues;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        playerController = FindObjectOfType(typeof(PlayerController)) as PlayerController;
+        cameraController = FindObjectOfType(typeof(CameraController)) as CameraController;
+    }
 
     public void PauseGame()
     {
@@ -33,104 +75,143 @@ public class GameManager : Singleton<GameManager>
         Application.Quit();
     }
 
+    private void OnApplicationQuit()
+    {
+        // Physic Material은 게임 진행 중 변경된 값이 그대로 저장되기 때문에
+        // 게임 시작 전 저장해둔 값으로 복구
+        SetPlayerBounciness(initialSettingValues.bounciness);
+    }
+
     public float GetPlayerMovePower()
     {
-        return playerController.MovePower;
+        return settingValues.movePower;
     }
 
     public void SetPlayerMovePower(float newMovePower)
     {
-        playerController.MovePower = newMovePower;
+        settingValues.movePower = newMovePower;
+
+        if (playerController != null)
+        {
+            playerController.MovePower = settingValues.movePower;
+        }
     }
 
     public float GetPlayerJumpPower()
     {
-        return playerController.JumpPower;
+        return settingValues.jumpPower;
     }
 
     public void SetPlayerJumpPower(float newJumpPower)
     {
-        playerController.JumpPower = newJumpPower;
+        settingValues.jumpPower = newJumpPower;
+
+        if (playerController != null)
+        {
+            playerController.JumpPower = settingValues.jumpPower;
+        }
     }
 
     public float GetPlayerMass()
     {
-        return playerController.Mass;
+        return settingValues.mass;
     }
 
     public void SetPlayerMass(float newMass)
     {
-        playerController.Mass = newMass;
-    }
+        settingValues.mass = newMass;
 
-    public float GetPlayerVelocityLimit()
-    {
-        return playerController.VelocityLimit;
-    }
-
-    public void SetPlayerVelocityLimit(float newVelocityLimit)
-    {
-        playerController.VelocityLimit = newVelocityLimit;
-    }
-
-    public float GetMaxCameraDistance()
-    {
-        return cameraController.MaxCameraDistance;
-    }
-
-    public void SetMaxCameraDistance(float newMaxCameraDistance)
-    {
-        cameraController.MaxCameraDistance = newMaxCameraDistance;
-    }
-
-    public float GetSensitivity()
-    {
-        return cameraController.Sensitivity;
-    }
-
-    public void SetSensitivity(float newSensitivity)
-    {
-        cameraController.Sensitivity = newSensitivity;
-    }
-
-    public float GetDynamicFriction()
-    {
-        return physicMaterial.dynamicFriction;
-    }
-
-    public void SetDynamicFriction(float newDynamicFriction)
-    {
-        physicMaterial.dynamicFriction = newDynamicFriction;
-    }
-
-    public float GetStaticFriction()
-    {
-        return physicMaterial.staticFriction;
-    }
-
-    public void SetStaticFriction(float newStaticFriction)
-    {
-        physicMaterial.staticFriction = newStaticFriction;
-    }
-
-    public float GetBounciness()
-    {
-        return physicMaterial.bounciness;
-    }
-
-    public void SetBounciness(float newBounciness)
-    {
-        physicMaterial.bounciness = newBounciness;
+        if (playerController != null)
+        {
+            playerController.Mass = settingValues.mass;
+        }
     }
 
     public float GetGravity()
     {
-        return -Physics.gravity.y;
+        return settingValues.gravity;
     }
 
     public void SetGravity(float newGravity)
     {
-        Physics.gravity = Vector3.down * newGravity;
+        settingValues.gravity = newGravity;
+
+        Physics.gravity = Vector3.down * settingValues.gravity;
+    }
+
+    public float GetPlayerDrag()
+    {
+        return settingValues.drag;
+    }
+
+    public void SetPlayerDrag(float newPlayerDrag)
+    {
+        settingValues.drag = newPlayerDrag;
+
+        if (playerController != null)
+        {
+            playerController.Drag = settingValues.drag;
+        }
+    }
+
+    public float GetMaxCameraDistance()
+    {
+        return settingValues.cameraDistance;
+    }
+
+    public void SetMaxCameraDistance(float newMaxCameraDistance)
+    {
+        settingValues.cameraDistance = newMaxCameraDistance;
+
+        if (cameraController != null)
+        {
+            cameraController.MaxCameraDistance = settingValues.cameraDistance;
+        }
+    }
+
+    public float GetCameraSensitivity()
+    {
+        return settingValues.cameraSensitivity;
+    }
+
+    public void SetCameraSensitivity(float newCameraSensitivity)
+    {
+        settingValues.cameraSensitivity = newCameraSensitivity;
+
+        if (cameraController != null)
+        {
+            cameraController.Sensitivity = settingValues.cameraSensitivity;
+        }
+    }
+
+    public float GetPlayerBounciness()
+    {
+        return settingValues.bounciness;
+    }
+
+    public void SetPlayerBounciness(float newPlayerBounciness)
+    {
+        settingValues.bounciness = newPlayerBounciness;
+
+        if (physicMaterial != null)
+        {
+            physicMaterial.bounciness = settingValues.bounciness;
+        }
+    }
+
+    public float GetPlayerVelocityLimit()
+    {
+        return settingValues.velocityLimit;
+    }
+
+    public void SetPlayerVelocityLimit(float newVelocityLimit)
+    {
+        settingValues.velocityLimit = newVelocityLimit;
+
+        if (playerController != null)
+        {
+            playerController.VelocityLimit = settingValues.velocityLimit;
+        }
     }
 
     public void EnableGamePlayInputActionMap()

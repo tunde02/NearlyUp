@@ -30,6 +30,11 @@ public class PlayerController : MonoBehaviour
         get => rb.mass;
         set => rb.mass = value;
     }
+    public float Drag
+    {
+        get => rb.drag;
+        set => rb.drag = value;
+    }
     private float _velocityLimit = 25f;
     public float VelocityLimit
     {
@@ -66,6 +71,9 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+
+        playerInput.actions.FindActionMap(gamePlayActionMap).FindAction("Open Menu").performed += ctx => { UIManager.Instance.OpenMenu(); };
+        playerInput.actions.FindActionMap(menuActionMap).FindAction("Close Menu").performed += ctx => { UIManager.Instance.CloseMenu(); };
     }
 
     private void Start()
@@ -341,12 +349,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SwitchToGamePlayActionMap()
+    {
+        playerInput.SwitchCurrentActionMap(gamePlayActionMap);
+    }
+
     public void SwitchToMenuActionMap(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             playerInput.SwitchCurrentActionMap(menuActionMap);
         }
+    }
+
+    public void SwitchToMenuActionMap()
+    {
+        playerInput.SwitchCurrentActionMap(menuActionMap);
     }
 
     public void EnableGamePlayInputActionMap()

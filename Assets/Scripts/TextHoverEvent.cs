@@ -11,7 +11,7 @@ public class TextHoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private string initialText;
 
 
-    private void Start()
+    private void Awake()
     {
         initialText = text.text;
     }
@@ -22,6 +22,11 @@ public class TextHoverEvent : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     }
 
     public void OnPointerExit(PointerEventData eventData)
+    {
+        text.text = $"<color=black>{initialText}</color>";
+    }
+
+    private void OnDisable()
     {
         text.text = $"<color=black>{initialText}</color>";
     }

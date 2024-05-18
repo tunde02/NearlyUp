@@ -12,11 +12,20 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             {
                 _instance = FindObjectOfType(typeof(T)) as T;
 
+                if (FindObjectsOfType(typeof(T)).Length > 1)
+                {
+                    Debug.LogWarning($"There're more than 1 instances of {typeof(T)} in Scene");
+                }
+
                 if (_instance == null)
                 {
-                    Debug.LogError($"There's no instance of {typeof(T)}");
+                    GameObject singleton = new GameObject();
+                    _instance = singleton.AddComponent<T>();
+                    singleton.name = "(singleton) " + typeof(T).ToString();
 
-                    return null;
+                    Debug.LogWarning("[Singleton] An instance of " + typeof(T) +
+                        " is needed in the scene, so '" + singleton +
+                        "' was created.");
                 }
             }
 
@@ -25,9 +34,13 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     }
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
-        // Instance = FindObjectOfType(typeof(T)) as T;
+        if (FindObjectsOfType(typeof(T)).Length > 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         DontDestroyOnLoad(gameObject);
     }
