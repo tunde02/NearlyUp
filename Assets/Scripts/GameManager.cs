@@ -82,6 +82,18 @@ public class GameManager : Singleton<GameManager>
         SetPlayerBounciness(initialSettingValues.bounciness);
     }
 
+    public void ShowCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void HideCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     public float GetPlayerMovePower()
     {
         return settingValues.movePower;

@@ -39,9 +39,7 @@ public class Shop : MonoBehaviour
     {
         shopCanvas.enabled = true;
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
+        GameManager.Instance.ShowCursor();
         GameManager.Instance.DisableGamePlayInputActionMap();
         GameManager.Instance.PauseGame();
     }
@@ -50,9 +48,7 @@ public class Shop : MonoBehaviour
     {
         shopCanvas.enabled = false;
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
+        GameManager.Instance.HideCursor();
         GameManager.Instance.EnableGamePlayInputActionMap();
         GameManager.Instance.ResumeGame();
     }

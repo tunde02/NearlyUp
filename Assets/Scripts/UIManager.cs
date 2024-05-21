@@ -14,9 +14,7 @@ public class UIManager : Singleton<UIManager>
         menuCanvas.SetActive(true);
         SetMenuState(true);
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
+        GameManager.Instance.ShowCursor();
         GameManager.Instance.PauseGame();
     }
 
@@ -25,9 +23,7 @@ public class UIManager : Singleton<UIManager>
         menuCanvas.SetActive(false);
         SetMenuState(false);
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
+        GameManager.Instance.HideCursor();
         GameManager.Instance.ResumeGame();
     }
 

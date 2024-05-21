@@ -7,6 +7,6 @@ public class ReturnButton : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        SceneManager.LoadScene("Title");
+        LevelManager.Instance.LoadTitleScene();
     }
 }

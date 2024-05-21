@@ -49,8 +49,7 @@ public class MenuCanvas : MonoBehaviour
     {
         // TODO: Popup
         UIManager.Instance.CloseMenu();
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        SceneManager.LoadScene("Title");
+        GameManager.Instance.ShowCursor();
+        LevelManager.Instance.LoadTitleScene();
     }
 }
