@@ -315,7 +315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 462855646590324511, guid: ed2ddd83882437f43b4d447a6688e65e, type: 3}
       propertyPath: m_Name
-      value: Settings Canvas (1)
+      value: Settings Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 462855646590324511, guid: ed2ddd83882437f43b4d447a6688e65e, type: 3}
       propertyPath: m_IsActive
