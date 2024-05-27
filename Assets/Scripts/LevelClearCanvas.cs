@@ -29,9 +29,9 @@ public class LevelClearCanvas : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Trophy_OnLevelClear(object sender, Trophy.OnLevelClearArgs eventArgs)
+    private void Trophy_OnLevelClear(object sender, Trophy.OnLevelClearArgs args)
     {
-        for (int i = 0; i < eventArgs.tier; i++)
+        for (int i = 0; i < args.tier; i++)
         {
             tierStarTexts[i].text = "★";
         }

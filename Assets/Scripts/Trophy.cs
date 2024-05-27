@@ -7,6 +7,7 @@ public class Trophy : MonoBehaviour
     public static event EventHandler<OnLevelClearArgs> OnLevelClear;
     public class OnLevelClearArgs : EventArgs
     {
+        public int level;
         public int tier;
     }
 
@@ -25,6 +26,6 @@ public class Trophy : MonoBehaviour
         GameManager.Instance.ShowCursor();
         GameManager.Instance.PauseGame();
 
-        OnLevelClear?.Invoke(this, new OnLevelClearArgs { tier = tier });
+        OnLevelClear?.Invoke(this, new OnLevelClearArgs { level = LevelManager.Instance.GetCurrentLevel(), tier = tier });
     }
 }
