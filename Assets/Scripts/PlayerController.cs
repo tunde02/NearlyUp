@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private readonly string menuActionMap = "Menu";
 
     // Movement
-    public float MovePower { get; set; } = 25f;
+    public float MovePower { get; set; } = 20f;
     public float Mass
     {
         get => rb.mass;

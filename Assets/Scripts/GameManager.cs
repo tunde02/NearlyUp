@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
+[System.Serializable]
 public struct SettingValues
 {
     public float movePower;
@@ -26,22 +27,13 @@ public class GameManager : Singleton<GameManager>
     public bool IsGamePaused { get; set; } = false;
 
 
-    private SettingValues settingValues = new() {
-        movePower = 25f,
-        jumpPower = 30f,
-        mass = 5f,
-        gravity = 6.8f,
-        drag = 0.1f,
-        cameraDistance = 7f,
-        cameraSensitivity = 15f,
-        bounciness = 0.05f,
-        velocityLimit = 25f
-    };
+    private SettingValues settingValues;
     private SettingValues initialSettingValues;
 
 
     private void Start()
     {
+        settingValues = SaveManager.Instance.Data.settingValues;
         initialSettingValues = settingValues;
 
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -72,6 +64,9 @@ public class GameManager : Singleton<GameManager>
 
     public void QuitGame()
     {
+        SaveManager.Instance.Data.score = ScoreManager.Instance.GetPlayerScore();
+        SaveManager.Instance.Data.settingValues = settingValues;
+        SaveManager.Instance.SavePlayerData();
         Application.Quit();
     }
 

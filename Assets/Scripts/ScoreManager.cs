@@ -1,3 +1,4 @@
+[System.Serializable]
 public struct PlayerScore
 {
     public int[] stageStars;
@@ -6,13 +7,12 @@ public struct PlayerScore
 
 public class ScoreManager : Singleton<ScoreManager>
 {
-    private PlayerScore playerScore = new() {
-        stageStars = new int[5] { 0, 0, 0, 0, 0 }
-    };
+    private PlayerScore playerScore;
 
 
     private void Start()
     {
+        playerScore = SaveManager.Instance.Data.score;
         Trophy.OnLevelClear += Trophy_OnLevelClear;
     }
 
