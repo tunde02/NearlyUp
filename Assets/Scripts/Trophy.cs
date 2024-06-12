@@ -23,6 +23,11 @@ public class Trophy : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        if (!other.gameObject.CompareTag("Player"))
+        {
+            return;
+        }
+
         GameManager.Instance.ShowCursor();
         GameManager.Instance.PauseGame();
 

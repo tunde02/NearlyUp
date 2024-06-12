@@ -29,6 +29,11 @@ public class LevelClearCanvas : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    void OnDestroy()
+    {
+        Trophy.OnLevelClear -= Trophy_OnLevelClear;
+    }
+
     private void Trophy_OnLevelClear(object sender, Trophy.OnLevelClearArgs args)
     {
         for (int i = 0; i < args.tier; i++)
