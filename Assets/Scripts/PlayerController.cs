@@ -152,6 +152,8 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         ++contactCount;
+
+        SoundManager.Instance.PlayCollisionEffect();
     }
 
     private void OnCollisionStay(Collision other)
