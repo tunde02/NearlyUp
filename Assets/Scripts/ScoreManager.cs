@@ -1,3 +1,6 @@
+using UnityEngine;
+
+
 [System.Serializable]
 public struct PlayerScore
 {
@@ -18,7 +21,7 @@ public class ScoreManager : Singleton<ScoreManager>
 
     private void Trophy_OnLevelClear(object sender, Trophy.OnLevelClearArgs args)
     {
-        playerScore.stageStars[args.level - 1] = args.tier;
+        playerScore.stageStars[args.level - 1] = Mathf.Max(playerScore.stageStars[args.level - 1], args.tier);
     }
 
     public PlayerScore GetPlayerScore()

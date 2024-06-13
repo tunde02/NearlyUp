@@ -58,9 +58,9 @@ public class PlayerController : MonoBehaviour
     // Slow Motion
     private bool inSlowMotion = false;
     public float slowMotionGauge = 10f;
-    private readonly float maxSlowMotionGauge = 10f;
-    private float gaugeRecoveryAmount = 1.0f;
-    private float gaugeConsumptionAmount = 2.0f;
+    public readonly float maxSlowMotionGauge = 10f;
+    private readonly float gaugeRecoveryAmount = 1.0f;
+    private readonly float gaugeConsumptionAmount = 2.0f;
 
     // Item
     public BaseItem[] Inventory { get; private set; } = { null, null, null };
